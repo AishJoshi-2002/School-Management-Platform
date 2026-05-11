@@ -23,7 +23,7 @@ exports.getContacts = async (req, res) => {
     try {
         const contacts = await Contact.find();
         if (!contacts || contacts.length === 0) {
-            return res.status(400).json({status: "Y", error: "No contacts found"});
+            return res.status(404).json({status: "Y", error: "No contacts found"});
         }
         return res.status(200).json({status: "Y", data: contacts});
     } catch (error) {
@@ -33,11 +33,11 @@ exports.getContacts = async (req, res) => {
 }
 
 exports.deleteContact = async (req, res) => {
-    let id = req.params.id;
     try {
+        const id = req.params.id;
         const contact = await Contact.findByIdAndDelete(id);
         if (!contact) {
-            return res.status(400).json({status: "Y", error: "Contact not found"});
+            return res.status(404).json({status: "Y", error: "Contact not found"});
         }
         return res.status(200).json({status: "Y", message: "Contact deleted successfully"});
     } catch (error) {
