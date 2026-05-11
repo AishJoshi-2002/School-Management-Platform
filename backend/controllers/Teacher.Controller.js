@@ -1,60 +1,60 @@
-const Notice = require('../models/Notice.Model');
+const Teacher = require('../models/Teacher.Model');
 
-exports.createNotice = async (req, res) => {
+exports.createTeacher = async (req, res) => {
     try {
-        const { title, description, date, category } = req.body;
-        if (!title || !description || !date || !category) {
+        const { name, subject, designation, bio, image } = req.body;
+        if (!name || !subject || !designation || !bio || !image) {
             return res.status(400).json({ message: 'All fields are required' });
         }
-        const newNotice = new Notice ({
-            title, description, date, category
+        const newTeacher = new Teacher ({
+            name, subject, designation, bio, image
         })
-        await newNotice.save();
-        return res.status(201).json({ message: 'Notice created successfully', Notice: newNotice });
+        await newTeacher.save();
+        return res.status(201).json({ message: 'Teacher created successfully', Teacher: newTeacher });
     } catch (error) {
         return res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
 
-exports.getNotice = async (req, res) => {
+exports.getTeacher = async (req, res) => {
     try {
-        const notices = await Notice.find();
-        if (!notices || notices.length === 0) {
-            return res.status(404).json({ message: 'No Notices found' });
+        const teachers = await Teacher.find();
+        if (!teachers || teachers.length === 0) {
+            return res.status(404).json({ message: 'No Teachers found' });
         }
-        return res.status(200).json({status: "Y", data: notices});
+        return res.status(200).json({status: "Y", data: teachers});
     } catch (error) {
         return res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
 
-exports.deleteNotice = async (req, res) => {
+exports.deleteTeacher = async (req, res) => {
     try {
         const id = req.params.id;
-        const notice = await Notice.findByIdAndDelete(id);
-        if (!notice) {
-            return res.status(404).json({ message: 'Notice not found' });
+        const teacher = await Teacher.findByIdAndDelete(id);
+        if (!teacher) {
+            return res.status(404).json({ message: 'Teacher not found' });
         }
-        return res.status(200).json({ message: 'Notice deleted successfully' });
+        return res.status(200).json({ message: 'Teacher deleted successfully' });
     } catch (error) {
         return res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
 
-exports.updateNotice = async (req, res) => {
+exports.updateTeacher = async (req, res) => {
     try {
         const id = req.params.id;
-        const { title, description, date, category } = req.body;
-        if (!title || !description || !date || !category) {
+        const { name, subject, designation, bio, image } = req.body;
+        if (!name || !subject || !designation || !bio || !image) {
             return res.status(400).json({ message: 'All fields are required' });
         }
-        const notice = await Notice.findById(id);
-        if (!notice) {
-            return res.status(404).json({ message: 'Notice not found' });
+        const teacher = await Teacher.findById(id);
+        if (!teacher) {
+            return res.status(404).json({ message: 'Teacher not found' });
         }
-        const updatedNotice = await Notice.findByIdAndUpdate(id, { title, description, date, category });
-        if (updatedNotice) {
-            return res.status(200).json({ message: 'Notice updated successfully' });
+        const updatedTeacher = await Teacher.findByIdAndUpdate(id, { name, subject, designation, bio, image });
+        if (updatedTeacher) {
+            return res.status(200).json({ message: 'Teacher updated successfully' });
         }
     } catch (error) {
         return res.status(500).json({ message: 'Server error', error: error.message });

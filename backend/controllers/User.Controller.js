@@ -2,12 +2,12 @@ const User = require('../models/User.Model');
 
 exports.createUser = async (req, res) => {
     try {
-        const { title, description, shortDescription, date, location } = req.body;
-        if (!title || !description || !shortDescription || !date || !location) {
+        const { name, email, password } = req.body;
+        if (!name || !email || !password) {
             return res.status(400).json({ message: 'All fields are required' });
         }
         const newUser = new User ({
-            title, description, shortDescription, date, location
+            name, email, password
         })
         await newUser.save();
         return res.status(201).json({ message: 'User created successfully', User: newUser });
@@ -44,15 +44,15 @@ exports.deleteUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
     try {
         const id = req.params.id;
-        const { title, description, shortDescription, date, location } = req.body;
-        if (!title || !description || !shortDescription || !date || !location) {
+        const { name, email, password } = req.body;
+        if (!name || !email || !password) {
             return res.status(400).json({ message: 'All fields are required' });
         }
         const user = await User.findById(id);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        const updatedUser = await User.findByIdAndUpdate(id, { title, description, shortDescription, date, location });
+        const updatedUser = await User.findByIdAndUpdate(id, { name, email, password });
         if (updatedUser) {
             return res.status(200).json({ message: 'User updated successfully' });
         }

@@ -28,7 +28,7 @@ const eventRoutes = require("./routes/Event.Route.js");
 const galleryRoutes = require("./routes/Gallery.Route.js");
 const noticeRoutes = require("./routes/Notice.Route.js");
 const teacherRoutes = require("./routes/Teacher.Route.js");
-const userRoutes = require("./routes/User.Route.js");
+const authRoutes = require("./routes/Auth.Route.js");
 
 // Using Routes
 app.use("/api/contact", contactRoutes);
@@ -36,7 +36,7 @@ app.use("/api/event", eventRoutes);
 app.use("/api/gallery", galleryRoutes);
 app.use("/api/notice", noticeRoutes);
 app.use("/api/teacher", teacherRoutes);
-app.use("/api/user", userRoutes);
+app.use("/api/auth", authRoutes);
 
 app.get('/', (req, res) => {
     return res.send('Hello World');
