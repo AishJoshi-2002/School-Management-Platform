@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 const { createGallery, getGallery, deleteGallery, updateGallery } = require('../controllers/Gallery.Controller');
+const authenticateJWT = require('../middleware/Auth.Middleware');
 
-router.post("/", createGallery);
+router.post("/", authenticateJWT, createGallery);
 
 router.get("/", getGallery);
 
-router.delete("/:id", deleteGallery);
+router.delete("/:id", authenticateJWT, deleteGallery);
 
-router.put("/:id", updateGallery);
+router.put("/:id", authenticateJWT, updateGallery);
 
 module.exports = router;
