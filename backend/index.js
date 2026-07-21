@@ -14,7 +14,7 @@ const connectDB = require(path.resolve(__dirname, 'config', 'db.js'));
 connectDB();
 
 //Middlewares
-const morgan = require('morgan');
+const morgan = require('morgan'); // http request logger middleware for node.js
 const cors = require('cors');
 
 app.use(morgan('dev')); // for logging HTTP requests (dev -> development purpose only)
